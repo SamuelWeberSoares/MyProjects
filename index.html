@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finax Promotora</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            color: #333;
+            background-color: #f5f5f5;
+        }
+        header {
+            background-color: #0047ab;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2em;
+        }
+        .hero {
+            background: linear-gradient(rgba(0,71,171,0.8), rgba(0,71,171,0.8)),
+                        url('https://via.placeholder.com/1200x400');
+            background-size: cover;
+            color: #fff;
+            padding: 60px 20px;
+            text-align: center;
+        }
+        .hero h2 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        .cta-buttons a {
+            display: inline-block;
+            margin: 10px;
+            padding: 10px 20px;
+            background-color: rgba(255,255,255,0.8);
+            color: #0047ab;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+        .cta-buttons a:hover {
+            background-color: #fff;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: rgba(255,255,255,0.9);
+        }
+        .metrics {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .metric {
+            flex: 1 1 200px;
+            margin: 10px;
+            background-color: rgba(0,71,171,0.1);
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .services {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+        .service {
+            flex: 1 1 200px;
+            margin: 10px;
+            padding: 20px;
+            background-color: rgba(0,71,171,0.05);
+            border-radius: 4px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        input, select {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px;
+            background-color: #0047ab;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #0047ab;
+            color: #fff;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Finax Promotora</h1>
+    </header>
+    <section class="hero">
+        <h2>Crédito Consignado Rápido e Seguro</h2>
+        <p>Especialistas em empréstimos consignados, saque FGTS e crédito para servidores públicos.</p>
+        <div class="cta-buttons">
+            <a href="#form">Simular Empréstimo</a>
+            <a href="#form">Sacar FGTS</a>
+        </div>
+    </section>
+    <div class="container">
+        <p><strong>Vagas Limitadas!</strong> Aproveite condições exclusivas e atendimento personalizado.</p>
+        <ul>
+            <li>+2.347 pessoas já acessaram condições exclusivas</li>
+            <li>Últimas 12 vagas para taxas reduzidas</li>
+        </ul>
+        <h3>Preencha com seu CPF e veja se você tem acesso a taxas reduzidas!</h3>
+        <form id="form">
+            <label>Nome Completo *
+                <input type="text" placeholder="Digite seu nome completo" required>
+            </label>
+            <label>CPF para Análise Personalizada *
+                <input type="text" placeholder="000.000.000-00" required>
+            </label>
+            <small>Usado apenas para esta simulação - não compartilhamos com terceiros</small>
+            <label>WhatsApp para Retorno *
+                <input type="text" placeholder="(11) 99999-9999" required>
+            </label>
+            <label>Qual seu interesse? *
+                <select required>
+                    <option>Selecione sua necessidade</option>
+                    <option>Empréstimo Consignado</option>
+                    <option>Saque FGTS</option>
+                    <option>Servidores Públicos</option>
+                </select>
+            </label>
+            <button type="submit">Analisar Meu CPF</button>
+        </form>
+        <div class="metrics">
+            <div class="metric">
+                <h4>+10k</h4>
+                <p>Clientes Atendidos</p>
+            </div>
+            <div class="metric">
+                <h4>R$ 50M+</h4>
+                <p>Em Empréstimos</p>
+            </div>
+            <div class="metric">
+                <h4>98%</h4>
+                <p>Satisfação</p>
+            </div>
+            <div class="metric">
+                <h4>15+</h4>
+                <p>Anos de Mercado</p>
+            </div>
+        </div>
+        <h3>Nossos Serviços</h3>
+        <div class="services">
+            <div class="service">
+                <h4>Saque FGTS</h4>
+                <p>Libere o valor do seu FGTS de forma rápida e segura.</p>
+            </div>
+            <div class="service">
+                <h4>Empréstimo CLT</h4>
+                <p>Crédito com desconto direto na folha de pagamento para trabalhadores CLT.</p>
+            </div>
+            <div class="service">
+                <h4>Aposentados e Pensionistas INSS</h4>
+                <p>Empréstimos especiais com condições exclusivas.</p>
+            </div>
+            <div class="service">
+                <h4>Servidores Públicos</h4>
+                <p>Crédito exclusivo para servidores públicos federais, estaduais e municipais.</p>
+            </div>
+        </div>
+        <h3>Por que escolher a Finax?</h3>
+        <ul>
+            <li>Segurança Garantida</li>
+            <li>Agilidade na Aprovação</li>
+            <li>Atendimento Personalizado</li>
+        </ul>
+        <h3>Entre em Contato</h3>
+        <p>Telefone: (48) 98810-1437 / (11) 3000-0000</p>
+        <p>E-mail: contato@finaxpromotora.com.br</p>
+        <p>Endereço: Av. Paulista, 1000 - São Paulo - SP</p>
+    </div>
+    <footer>
+        © 2024 Finax Promotora. Todos os direitos reservados.
+    </footer>
+</body>
+</html>
