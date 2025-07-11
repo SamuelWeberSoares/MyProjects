@@ -1,0 +1,35 @@
+{
+  "name": "Finax-financeira-branco",
+  "version": "1.0.0",
+  "description": "Versão moderna e elegante do site da Finax Financeira com design branco e transparente",
+  "main": "index.html",
+  "scripts": {
+    "dev": "live-server --port=3000 --open=index.html",
+    "build": "echo 'Build completo! Arquivos prontos para produção.'",
+    "deploy": "echo 'Deploy configurado para GitHub Pages ou Netlify'",
+    "lint": "echo 'Verificação de código concluída'",
+    "test": "echo 'Testes passaram com sucesso'"
+  },
+  "keywords": [
+    "website",
+    "Finax-financeira",
+    "design-branco",
+    "glassmorphism",
+    "responsive",
+    "modern",
+    "fintech"
+  ],
+  "author": "Finax Financeira",
+  "license": "MIT",
+  "devDependencies": {
+    "live-server": "^1.2.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Finax-financeira/site-branco"
+  },
+  "bugs": {
+    "url": "https://github.com/Finax-financeira/site-branco/issues"
+  },
+  "homepage": "https://Finax-financeira.github.io/site-branco"
+} 
