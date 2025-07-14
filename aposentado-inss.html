@@ -42,8 +42,9 @@
                 <h1 class="product-title">Consignado para Aposentado ou Pensionista INSS</h1>
                 <h2 class="product-subtitle">Tranquilidade e respeito com quem construiu a vida toda</h2>
                 <p class="product-description">
-                    Com o crédito consignado para aposentados e pensionistas, você conta com uma das menores taxas do mercado e parcelas fixas descontadas direto do benefício.
+                    Você que já contribuiu tanto para o país merece ter acesso ao melhor crédito. Com o consignado do INSS, você tem tranquilidade para realizar seus planos sem comprometer seu orçamento.
                 </p>
+                <div id="simulador-inss"></div>
                 
                 <div class="product-advantages">
                     <h3>💡 Vantagens:</h3>
@@ -104,5 +105,23 @@
             </div>
         </a>
     </div>
+    <script>
+        // Dados estáticos da calculadora para Aposentado INSS
+        window.calculadoraData = {
+            "consignado_inss": {
+                "prazos": [
+                    {"prazo": 12, "coeficiente_parcela": 0.09250, "coeficiente_liberado": 0.09550},
+                    {"prazo": 24, "coeficiente_parcela": 0.05190, "coeficiente_liberado": 0.05490},
+                    {"prazo": 36, "coeficiente_parcela": 0.03790, "coeficiente_liberado": 0.04090},
+                    {"prazo": 48, "coeficiente_parcela": 0.03090, "coeficiente_liberado": 0.03390},
+                    {"prazo": 60, "coeficiente_parcela": 0.02690, "coeficiente_liberado": 0.02990},
+                    {"prazo": 72, "coeficiente_parcela": 0.02450, "coeficiente_liberado": 0.02750},
+                    {"prazo": 84, "coeficiente_parcela": 0.02290, "coeficiente_liberado": 0.02590}
+                ]
+            }
+        };
+    </script>
+    <script src="script.js"></script>
+    <script>if(window.renderSimuladorConsignado){renderSimuladorConsignado('simulador-inss','consignado','inss');}</script>
 </body>
 </html> 

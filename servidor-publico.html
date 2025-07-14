@@ -39,8 +39,9 @@
                 <h1 class="product-title">Consignado para Servidor Público</h1>
                 <h2 class="product-subtitle">Crédito com quem respeita quem faz o Brasil acontecer</h2>
                 <p class="product-description">
-                    Se você é servidor público, tem acesso ao melhor do crédito consignado. Parcelas que cabem no seu bolso, prazos mais longos e liberação rápida — sem dores de cabeça.
+                    Se você é servidor público, já conhece a tranquilidade de ter renda garantida. Agora imagine ter acesso ao crédito mais justo e seguro do mercado, com condições especiais pensadas exatamente para o seu perfil.
                 </p>
+                <div id="simulador-servidor"></div>
                 
                 <div class="product-advantages">
                     <h3>💡 Vantagens:</h3>
@@ -101,5 +102,24 @@
             </div>
         </a>
     </div>
+    <script>
+        // Dados estáticos da calculadora para Servidor Público
+        window.calculadoraData = {
+            "consignado_servidor": {
+                "prazos": [
+                    {"prazo": 12, "coeficiente_parcela": 0.08950, "coeficiente_liberado": 0.09250},
+                    {"prazo": 24, "coeficiente_parcela": 0.04890, "coeficiente_liberado": 0.05190},
+                    {"prazo": 36, "coeficiente_parcela": 0.03570, "coeficiente_liberado": 0.03790},
+                    {"prazo": 48, "coeficiente_parcela": 0.02890, "coeficiente_liberado": 0.03090},
+                    {"prazo": 60, "coeficiente_parcela": 0.02490, "coeficiente_liberado": 0.02690},
+                    {"prazo": 72, "coeficiente_parcela": 0.02250, "coeficiente_liberado": 0.02450},
+                    {"prazo": 84, "coeficiente_parcela": 0.02090, "coeficiente_liberado": 0.02290},
+                    {"prazo": 96, "coeficiente_parcela": 0.01980, "coeficiente_liberado": 0.02180}
+                ]
+            }
+        };
+    </script>
+    <script src="script.js"></script>
+    <script>if(window.renderSimuladorConsignado){renderSimuladorConsignado('simulador-servidor','consignado','servidor');}</script>
 </body>
 </html> 

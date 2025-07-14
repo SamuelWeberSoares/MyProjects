@@ -289,3 +289,81 @@ fadeInElements.forEach((element, index) => {
 });
 
 console.log('🎉 Finax - Design Branco carregado com sucesso!'); 
+
+// --- Simulador Consignado Reutilizável ---
+function renderSimuladorConsignado(containerId, tipoConvenio, subdivisao) {
+    // Usar dados embutidos no HTML em vez de localStorage
+    const key = subdivisao ? `${tipoConvenio}_${subdivisao}` : tipoConvenio;
+    const dadosCalculadora = window.calculadoraData && window.calculadoraData[key];
+    const prazos = dadosCalculadora && dadosCalculadora.prazos ? dadosCalculadora.prazos : [];
+    
+    if (prazos.length === 0) {
+        document.getElementById(containerId).innerHTML = `
+            <div class="calc-container">
+                <div class="calc-title">🔧 Simulador em Configuração</div>
+                <p style="text-align: center; color: var(--gray-600); margin: 2rem 0;">
+                    Os prazos e coeficientes ainda não foram configurados para este produto.
+                    <br><small>Entre em contato conosco para mais informações.</small>
+                </p>
+            </div>`;
+        return;
+    }
+    
+    const html = `
+    <div class="calc-container">
+        <div class="calc-title">💰 Simule seu Crédito</div>
+        <form id="simulador-form-${containerId}">
+            <div class="calc-section">
+                <label class="calc-label">🎯 Tipo de Simulação</label>
+                <div class="flex-row">
+                    <label><input type="radio" name="tipo-simulacao-${containerId}" value="parcela" checked> 💳 Valor da Parcela</label>
+                    <label><input type="radio" name="tipo-simulacao-${containerId}" value="liberado"> 💵 Valor Liberado</label>
+                </div>
+                <input class="calc-input" type="number" id="valor-${containerId}" min="0" step="0.01" placeholder="Digite o valor em R$..." required>
+            </div>
+            <button type="submit" class="calc-btn">🚀 Simular Agora</button>
+        </form>
+        <div class="calc-results" id="calc-results-${containerId}"></div>
+    </div>`;
+    
+    document.getElementById(containerId).innerHTML = html;
+    
+    document.getElementById(`simulador-form-${containerId}`).onsubmit = function(e) {
+        e.preventDefault();
+        const tipo = document.querySelector(`input[name='tipo-simulacao-${containerId}']:checked`).value;
+        const valor = parseFloat(document.getElementById(`valor-${containerId}`).value);
+        
+        if (!valor || prazos.length === 0) {
+            alert('Por favor, digite um valor válido!');
+            return;
+        }
+        
+        let resultHtml = '<h3 style="text-align: center; color: var(--primary-color); margin-bottom: 1rem;">📊 Resultado da Simulação</h3>';
+        resultHtml += '<table class="calc-table"><thead><tr><th>📅 Prazo</th>';
+        
+        if (tipo === 'parcela') {
+            resultHtml += '<th>💰 Valor Liberado</th>';
+        } else {
+            resultHtml += '<th>💳 Valor da Parcela</th>';
+        }
+        
+        resultHtml += '</tr></thead><tbody>';
+        
+        prazos.forEach(p => {
+            if (tipo === 'parcela') {
+                // Para simulação por parcela, usa coeficiente_parcela para calcular valor liberado
+                const liberado = (valor / p.coeficiente_parcela).toFixed(2);
+                resultHtml += `<tr><td>${p.prazo} meses</td><td>R$ ${Number(liberado).toLocaleString('pt-BR', {minimumFractionDigits: 2})}</td></tr>`;
+            } else {
+                // Para simulação por valor liberado, usa coeficiente_liberado para calcular parcela
+                const parcela = (valor * p.coeficiente_liberado).toFixed(2);
+                resultHtml += `<tr><td>${p.prazo} meses</td><td>R$ ${Number(parcela).toLocaleString('pt-BR', {minimumFractionDigits: 2})}</td></tr>`;
+            }
+        });
+        
+        resultHtml += '</tbody></table>';
+        resultHtml += '<p style="text-align: center; margin-top: 1rem; color: var(--gray-600); font-size: 0.9rem;">💡 <em>Valores aproximados para simulação. Entre em contato para condições finais.</em></p>';
+        
+        document.getElementById(`calc-results-${containerId}`).innerHTML = resultHtml;
+    };
+} 

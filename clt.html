@@ -39,6 +39,7 @@
                 <p class="product-description">
                     Você que é trabalhador CLT agora pode contar com um consignado pensado pra você: mais fácil de aprovar, sem surpresas, com parcelas fixas que cabem no seu bolso.
                 </p>
+                <div id="simulador-clt"></div>
                 
                 <div class="product-advantages">
                     <h3>💡 Vantagens:</h3>
@@ -107,5 +108,21 @@
             </div>
         </a>
     </div>
+    <script>
+        // Dados estáticos da calculadora para CLT
+        window.calculadoraData = {
+            "clt": {
+                "prazos": [
+                    {"prazo": 12, "coeficiente_parcela": 0.09950, "coeficiente_liberado": 0.10250},
+                    {"prazo": 24, "coeficiente_parcela": 0.05790, "coeficiente_liberado": 0.06090},
+                    {"prazo": 36, "coeficiente_parcela": 0.04290, "coeficiente_liberado": 0.04590},
+                    {"prazo": 48, "coeficiente_parcela": 0.03590, "coeficiente_liberado": 0.03890},
+                    {"prazo": 60, "coeficiente_parcela": 0.03190, "coeficiente_liberado": 0.03490}
+                ]
+            }
+        };
+    </script>
+    <script src="script.js"></script>
+    <script>if(window.renderSimuladorConsignado){renderSimuladorConsignado('simulador-clt','clt');}</script>
 </body>
 </html> 

@@ -1,0 +1,34 @@
+{
+  "consignado_servidor": {
+    "prazos": [
+      {"prazo": 12, "coeficiente_parcela": 0.08950, "coeficiente_liberado": 0.09250},
+      {"prazo": 24, "coeficiente_parcela": 0.04890, "coeficiente_liberado": 0.05190},
+      {"prazo": 36, "coeficiente_parcela": 0.03570, "coeficiente_liberado": 0.03790},
+      {"prazo": 48, "coeficiente_parcela": 0.02890, "coeficiente_liberado": 0.03090},
+      {"prazo": 60, "coeficiente_parcela": 0.02490, "coeficiente_liberado": 0.02690},
+      {"prazo": 72, "coeficiente_parcela": 0.02250, "coeficiente_liberado": 0.02450},
+      {"prazo": 84, "coeficiente_parcela": 0.02090, "coeficiente_liberado": 0.02290},
+      {"prazo": 96, "coeficiente_parcela": 0.01980, "coeficiente_liberado": 0.02180}
+    ]
+  },
+  "consignado_inss": {
+    "prazos": [
+      {"prazo": 12, "coeficiente_parcela": 0.09250, "coeficiente_liberado": 0.09550},
+      {"prazo": 24, "coeficiente_parcela": 0.05190, "coeficiente_liberado": 0.05490},
+      {"prazo": 36, "coeficiente_parcela": 0.03790, "coeficiente_liberado": 0.04090},
+      {"prazo": 48, "coeficiente_parcela": 0.03090, "coeficiente_liberado": 0.03390},
+      {"prazo": 60, "coeficiente_parcela": 0.02690, "coeficiente_liberado": 0.02990},
+      {"prazo": 72, "coeficiente_parcela": 0.02450, "coeficiente_liberado": 0.02750},
+      {"prazo": 84, "coeficiente_parcela": 0.02290, "coeficiente_liberado": 0.02590}
+    ]
+  },
+  "clt": {
+    "prazos": [
+      {"prazo": 12, "coeficiente_parcela": 0.09950, "coeficiente_liberado": 0.10250},
+      {"prazo": 24, "coeficiente_parcela": 0.05790, "coeficiente_liberado": 0.06090},
+      {"prazo": 36, "coeficiente_parcela": 0.04290, "coeficiente_liberado": 0.04590},
+      {"prazo": 48, "coeficiente_parcela": 0.03590, "coeficiente_liberado": 0.03890},
+      {"prazo": 60, "coeficiente_parcela": 0.03190, "coeficiente_liberado": 0.03490}
+    ]
+  }
+} 

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Crédito Consignado - Finax</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body { background: #f8fafc; }
+        .calc-container { max-width: 600px; margin: 40px auto; background: #fff; border-radius: 18px; box-shadow: 0 4px 24px rgba(0,0,0,0.07); padding: 2.5rem 2rem; }
+        .calc-title { font-size: 2rem; font-weight: 700; color: var(--primary-color, #059669); margin-bottom: 1.5rem; text-align: center; }
+        .calc-section { margin-bottom: 2rem; }
+        .calc-label { font-weight: 600; color: var(--gray-800, #1e293b); margin-bottom: 0.5rem; display: block; }
+        .calc-select, .calc-input { width: 100%; padding: 0.7rem 1rem; border-radius: 8px; border: 1px solid #e2e8f0; margin-bottom: 1rem; font-size: 1rem; }
+        .calc-btn { background: var(--primary-color, #059669); color: #fff; border: none; border-radius: 8px; padding: 0.8rem 2rem; font-weight: 600; font-size: 1.1rem; cursor: pointer; margin-top: 1rem; width: 100%; }
+        .calc-btn:hover { background: var(--secondary-color, #10b981); }
+        .calc-results { margin-top: 2rem; }
+        .calc-table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+        .calc-table th, .calc-table td { border: 1px solid #e2e8f0; padding: 0.6rem; text-align: center; }
+        .calc-table th { background: #f1f5f9; font-weight: 700; }
+        .flex-row { display: flex; gap: 1rem; }
+        .flex-row > * { flex: 1; }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+    <div class="calc-container">
+        <div class="calc-title">Simulador de Crédito Consignado</div>
+        <form id="calc-form">
+            <div class="calc-section">
+                <label class="calc-label" for="convenio">Convênio</label>
+                <select class="calc-select" id="convenio" required>
+                    <option value="" disabled selected>Selecione...</option>
+                    <option value="consignado">Crédito Consignado</option>
+                    <option value="clt">Consignado para CLT</option>
+                </select>
+            </div>
+            <div class="calc-section" id="subdivisao-section" style="display:none;">
+                <label class="calc-label" for="subdivisao">Subdivisão</label>
+                <select class="calc-select" id="subdivisao">
+                    <!-- Opções dinâmicas -->
+                </select>
+            </div>
+            <div class="calc-section">
+                <label class="calc-label">Adicionar Prazo e Coeficientes</label>
+                <div class="flex-row">
+                    <input class="calc-input" type="number" id="prazo" min="1" placeholder="Prazo (meses)">
+                    <input class="calc-input" type="number" id="coef-parcela" min="0" step="0.0001" placeholder="Coef. Parcela">
+                    <input class="calc-input" type="number" id="coef-liberado" min="0" step="0.0001" placeholder="Coef. Liberado">
+                    <button type="button" class="calc-btn" id="add-prazo" style="padding:0 1rem;min-width:unset;width:auto;">+</button>
+                </div>
+                <div id="prazos-list"></div>
+            </div>
+            <div class="calc-section">
+                <label class="calc-label">Tipo de Simulação</label>
+                <div class="flex-row">
+                    <label><input type="radio" name="tipo-simulacao" value="parcela" checked> Valor da Parcela</label>
+                    <label><input type="radio" name="tipo-simulacao" value="liberado"> Valor Liberado</label>
+                </div>
+                <input class="calc-input" type="number" id="valor" min="0" step="0.01" placeholder="Informe o valor..." required>
+            </div>
+            <button type="submit" class="calc-btn">Simular</button>
+        </form>
+        <div class="calc-results" id="calc-results"></div>
+    </div>
+    <script>
+        // Convenio e subdivisão
+        const convenio = document.getElementById('convenio');
+        const subdivisaoSection = document.getElementById('subdivisao-section');
+        const subdivisao = document.getElementById('subdivisao');
+        
+        // Prazo e coeficientes
+        let prazos = [];
+        
+        function getPrazosKey() {
+            const convenioVal = convenio.value;
+            const subdivisaoVal = convenioVal === 'consignado' ? subdivisao.value : '';
+            return 'prazos_' + convenioVal + (subdivisaoVal ? '_' + subdivisaoVal : '');
+        }
+        
+        function loadPrazos() {
+            const key = getPrazosKey();
+            prazos = JSON.parse(localStorage.getItem(key) || '[]');
+            renderPrazos();
+        }
+        
+        function savePrazos() {
+            const key = getPrazosKey();
+            localStorage.setItem(key, JSON.stringify(prazos));
+        }
+        
+        convenio.addEventListener('change', function() {
+            subdivisao.innerHTML = '';
+            if (convenio.value === 'consignado') {
+                subdivisaoSection.style.display = '';
+                subdivisao.innerHTML = '<option value="servidor">Servidor Público</option><option value="inss">Aposentado ou Pensionista do INSS</option>';
+            } else {
+                subdivisaoSection.style.display = 'none';
+            }
+            loadPrazos();
+        });
+        subdivisao.addEventListener('change', loadPrazos);
+        
+        document.getElementById('add-prazo').onclick = function() {
+            if (!convenio.value) { alert('Selecione um convênio primeiro'); return; }
+            if (convenio.value === 'consignado' && !subdivisao.value) { alert('Selecione uma subdivisão'); return; }
+            
+            const prazo = parseInt(document.getElementById('prazo').value);
+            const coefParcela = parseFloat(document.getElementById('coef-parcela').value);
+            const coefLiberado = parseFloat(document.getElementById('coef-liberado').value);
+            if (!prazo || !coefParcela || !coefLiberado) return;
+            prazos.push({ prazo, coefParcela, coefLiberado });
+            savePrazos();
+            renderPrazos();
+            document.getElementById('prazo').value = '';
+            document.getElementById('coef-parcela').value = '';
+            document.getElementById('coef-liberado').value = '';
+        };
+        
+        function renderPrazos() {
+            const list = document.getElementById('prazos-list');
+            if (prazos.length === 0) { list.innerHTML = '<em>Nenhum prazo adicionado.</em>'; return; }
+            list.innerHTML = '<table class="calc-table"><thead><tr><th>Prazo</th><th>Coef. Parcela</th><th>Coef. Liberado</th><th></th></tr></thead><tbody>' +
+                prazos.map((p, i) => `<tr><td>${p.prazo} meses</td><td>${p.coefParcela}</td><td>${p.coefLiberado}</td><td><button type='button' onclick='removePrazo(${i})'>Remover</button></td></tr>`).join('') + '</tbody></table>';
+        }
+        window.removePrazo = function(i) { 
+            prazos.splice(i,1); 
+            savePrazos();
+            renderPrazos(); 
+        };
+        // Simulação
+        document.getElementById('calc-form').onsubmit = function(e) {
+            e.preventDefault();
+            const tipo = document.querySelector('input[name="tipo-simulacao"]:checked').value;
+            const valor = parseFloat(document.getElementById('valor').value);
+            if (!valor || prazos.length === 0) return;
+            let html = '<table class="calc-table"><thead><tr><th>Prazo</th>';
+            if (tipo === 'parcela') html += '<th>Valor Liberado</th><th>Coef. Liberado</th>';
+            else html += '<th>Valor da Parcela</th><th>Coef. Parcela</th>';
+            html += '</tr></thead><tbody>';
+            prazos.forEach(p => {
+                if (tipo === 'parcela') {
+                    const liberado = (valor / p.coefLiberado).toFixed(2);
+                    html += `<tr><td>${p.prazo} meses</td><td>R$ ${liberado}</td><td>${p.coefLiberado}</td></tr>`;
+                } else {
+                    const parcela = (valor * p.coefParcela).toFixed(2);
+                    html += `<tr><td>${p.prazo} meses</td><td>R$ ${parcela}</td><td>${p.coefParcela}</td></tr>`;
+                }
+            });
+            html += '</tbody></table>';
+            document.getElementById('calc-results').innerHTML = html;
+        };
+        loadPrazos(); // Carregar prazos ao carregar a página
+    </script>
+</body>
+</html> 
